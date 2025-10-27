@@ -1,0 +1,52 @@
+.home-bg-decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.home-bg-decor .shape {
+  position: absolute;
+  opacity: 0.45; /* Increased brightness */
+  filter: blur(2px); /* Less blur = sharper look */
+  mix-blend-mode: screen;
+  transform-origin: center;
+  will-change: transform, opacity;
+  box-shadow: 0 20px 80px rgba(124, 58, 237, 0.45); /* Stronger glow */
+}
+
+/* Circles */
+.home-bg-decor .circle {
+  border-radius: 50%;
+}
+
+/* Diamonds */
+.home-bg-decor .diamond {
+  transform: rotate(45deg);
+  border-radius: 12px;
+}
+
+/* ✅ Faster + smoother motion */
+@keyframes floatShape {
+  0% { transform: translate(var(--x1,0px), var(--y1,0px)) rotate(var(--r1,0deg)); opacity: 0.40; }
+  25% { transform: translate(calc(var(--x1,0px) / 2), calc(var(--y2,0px) / 2)) rotate(calc(var(--r1,0deg) + 18deg)); opacity: 0.48; }
+  50% { transform: translate(var(--x2,0px), var(--y2,0px)) rotate(var(--r2,0deg)); opacity: 0.42; }
+  75% { transform: translate(calc(var(--x2,0px) / 2), calc(var(--y1,0px) / 2)) rotate(calc(var(--r2,0deg) - 12deg)); opacity: 0.45; }
+  100% { transform: translate(var(--x1,0px), var(--y1,0px)) rotate(var(--r1,0deg)); opacity: 0.40; }
+}
+
+.home-bg-decor .shape {
+  animation-name: floatShape;
+  animation-duration: 12s; /* Faster motion */
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .home-bg-decor .shape {
+    animation: none !important;
+    opacity: 0.10;
+  }
+}
